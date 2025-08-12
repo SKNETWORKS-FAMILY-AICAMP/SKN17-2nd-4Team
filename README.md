@@ -125,7 +125,8 @@
 -----
 
 # 5. 데이터 전처리 결과서 (EDA)
-1. 데이터 로드 
+## 👉 기본 데이터 (`21년도~`24년도, 4개년)
+### 1. 데이터 로드 
 ```python
 df = pd.read_csv('./data/p21v31_KMP_csv.csv', encoding='CP949')
 
@@ -161,7 +162,7 @@ df_21.head()
 <br>
 <br>
 
-2. 변수 변환
+### 2. 변수 변환
 * 유/무직자 컬럼 병합 및 정제
 ```python
 # 유직자 번호 변경
@@ -209,17 +210,163 @@ df_model_base = df_all[df_all['churn'].notna()].copy() # 'churn'값이 NaN이 �
 
 <br>
   
-* 
+* 최종 기초 데이터 
 <img width="930" height="205" alt="image" src="https://github.com/user-attachments/assets/df8436b7-dd45-466b-82b7-e27352603102" />
 
-3. 
- 
+### 3. EDA
+* 특성별 이탈 분석
+<img width="1790" height="480" alt="image" src="https://github.com/user-attachments/assets/4e29ff38-5992-4bb3-8888-5d3c067fde4f" />
+<img width="1790" height="480" alt="image" src="https://github.com/user-attachments/assets/2da35fea-d1b4-415d-816f-2a663ef4399c" />
+<img width="634" height="391" alt="image" src="https://github.com/user-attachments/assets/698468a0-6818-487a-af33-69bba79b8afe" />
+
+
+<br>
+
+
+* 변수별 상관계수 
+<img width="1038" height="360" alt="image" src="https://github.com/user-attachments/assets/0f770e73-60b6-464a-9fab-b468902a28cc" />
+
+<br>
+
+#### → 하나의 'pid'(응답자) 별 여러 이탈 변수 반환으로 모델 학습 오류 발생
+#### → 2019년도와 2024년도에 대한 이탈률 비교를 통한 모델로 변경
+
+<br>
+<br>
+
+-----
+
+## 👉 최종 데이터 (`19년도 /`24년도, 2개년 비교)
+### 1. 데이터 로드 
+```python
+df = pd.read_csv('./data/p19v31_KMP_csv.csv', encoding='CP949')
+
+feature = ['pid', 'p19age', 'p19gender', 'p19school', 'p19mar', 'p19job1', 'p19job2', 'p19job4', 'p19income', 'p19relig2', 'p19d27001', 'p19d27002', 'p19d27003', 'p19d27004', 'p19d11002', 'p19d11004', 'p19d11006']
+
+df_19 = df[feature].copy()
+
+df_19.rename(
+    columns={
+        'p19age': 'age', 
+        'p19gender': 'gender', 
+        'p19school': 'school', 
+        'p19mar': 'mar', 
+        'p19job1': 'job', 
+        'p19job2': 'job_o',
+        'p19job4': 'job_x',
+        'p19income': 'income', 
+        'p19relig2': 'relig',
+        'p19d27001': 'd01', 
+        'p19d27002': 'd02', 
+        'p19d27003': 'd03', 
+        'p19d27004': 'd04',
+        'p19d11002': 'label_1',
+        'p19d11004': 'label_2', 
+        'p19d11006': 'label_3'
+    }, inplace=True
+)
+
+df_19['year'] = 2019
+
+df_19.head()
+```
+<img width="1303" height="193" alt="image" src="https://github.com/user-attachments/assets/990f4250-728e-48b5-bf49-b33ab7db3424" />
+
+<br>
+<br>
+
+### 2. 변수 변환
+* 라벨데이터 재생성
+```python
+# 라벨 기초 데이터 변환 (3순위 포함)
+df_24['label'] = (df_24[['label_1', 'label_2', 'label_3']].isin(['2']).any(axis=1).astype(int))
+print(sum(df_24['label'] == 1), sum(df_24['label'] == 0))
+
+# label의 다음 연도 값
+df_all['next_year_label'] = df_all.groupby('pid')['label'].shift(-1)
+df_all
+
+# 라벨 데이터 생성 = 이탈(churn) 여부 정의 
+churn_conditions = [
+    (df_all['label'] == 1) & (df_all['next_year_label'].notna()) & (df_all['next_year_label'] != 1),
+    (df_all['label'] == 1) & (df_all['next_year_label'].notna()) & (df_all['next_year_label'] == 1)
+]
+churn_choices = [1, 0] # 1: 이탈 (Churn), 0: 비이탈 (Not Churn)
+
+df_all['churn'] = np.select(churn_conditions, churn_choices, default=np.nan)
+```
+
+<br>
+
+* 결측치 제거
+```python
+df_all = df_all[df_all['label'].str.strip() != ''].reset_index(drop=True)
+```
+
+<br>
+
+* 이탈(churn) 변수 정의
+```python
+df_all['next_year_label'] = df_all.groupby('pid')['label'].shift(-1) # 각 pid 그룹에 대한 다음 연도의 label 값 반환
+
+churn_conditions = [
+    (df_all['label'] == '2') & (df_all['next_year_label'].notna()) & (df_all['next_year_label'] != '2'),
+    (df_all['label'] == '2') & (df_all['next_year_label'].notna()) & (df_all['next_year_label'] == '2')
+]
+churn_choices = [1, 0] # 1: 이탈 (Churn), 0: 비이탈 (Not Churn)
+
+df_all['churn'] = np.select(churn_conditions, churn_choices, default=np.nan)
+```
+
+<br>
+
+* 필터링
+```python
+df_model_base = df_all[df_all['churn'].notna()].copy() # 'churn'값이 NaN이 아닌 경우 필터링
+```
+
+<br>
+  
+* 2개년 기초 데이터 
+<img width="940" height="199" alt="image" src="https://github.com/user-attachments/assets/d8c182a7-6868-40a7-adc0-f6da4f0a2ce4" />
+
+<br>
+
+* 24년도 변수 변경 내용 컬럼 추가
+<img width="1540" height="198" alt="image" src="https://github.com/user-attachments/assets/5b23701e-db7c-4bb6-a163-677e97b8e6be" />
+
+→ 총 31개 피처, 1712개 로우 수 생성
+
+
+### 3. EDA
+* 변수별 상관계수 
+<img width="842" height="752" alt="image" src="https://github.com/user-attachments/assets/723d36c7-57d0-4725-97d8-5fb8a5d00063" />
+
+* 파생 변수 추가
+```python
+# 2. 변화량(차이) 파생변수 생성
+df_final['d01_change'] = df_final['d01_y'] - df_final['d01_x']
+df_final['d02_change'] = df_final['d02_y'] - df_final['d02_x']
+df_final['d03_change'] = df_final['d03_y'] - df_final['d03_x']
+df_final['d04_change'] = df_final['d04_y'] - df_final['d04_x']
+df_final['income_change'] = df_final['income_y'] - df_final['income_x']
+df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  # 직업 변동 여부
+```
+→ 모델 성능 추출 간 변화 내용 없음. 파생변수 미사용.
+
+
+* 중요도 추출
+<img width="842" height="752" alt="image" src="https://github.com/user-attachments/assets/80d1d544-f0fa-4f01-acdf-6a39cde6162f" />
+
+  
 <br>
 <br>
 
 -----
 
 # 6. 인공지능 학습 결과서 
+
+
  
 <br>
 <br>
