@@ -117,30 +117,29 @@
 -----
 
 # 4. WBS
-![WBS이미지](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-1st-3Team/blob/main/image/streamlit/WBS.png)
+![WBS이미지](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/WBS.png)
 
 <br>
 <br>
 
 -----
 
-# 5. 요구사항 명세서
-![요구사항이미지](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-1st-3Team/blob/main/image/streamlit_2/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%EB%AA%85%EC%84%B8%EC%84%9C_2.png)
+# 5. 데이터 전처리 결과서 (EDA)
+ 
 <br>
 <br>
 
 -----
 
-# 6. ERD
-![1차 프로젝트 ERD](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-1st-3Team/blob/main/image/streamlit_2/erd.png)
+# 6. 인공지능 학습 결과서 
+ 
 <br>
 <br>
 
 -----
 
-# 7. 수행결과(시연 페이지)
-##              [STREAMLIT 구현화면]
-## ▶️ 연도별, 지역별 친환경 차량 현황 및 보조금 현황 시각화 
+# 7. 수행결과
+
 
 # 8. 한 줄 회고
 |이름|내용|
