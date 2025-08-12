@@ -125,6 +125,94 @@
 -----
 
 # 5. 데이터 전처리 결과서 (EDA)
+1. 데이터 로드 
+```python
+df = pd.read_csv('./data/p21v31_KMP_csv.csv', encoding='CP949')
+
+feature = ['pid', 'p21age', 'p21gender', 'p21school', 'p21mar', 'p21job1', 'p21job2', 'p21job4', 'p21income', 'p21relig2', 'p21d27001', 'p21d27002', 'p21d27003', 'p21d27004', 'p21d11002']
+
+df_21 = df[feature].copy()
+
+df_21.rename(
+    columns={
+        'p21age': 'age', 
+        'p21gender': 'gender', 
+        'p21school': 'school', 
+        'p21mar': 'mar', 
+        'p21job1': 'job', 
+        'p21job2': 'job_o',
+        'p21job4': 'job_x', 
+        'p21income': 'income', 
+        'p21relig2': 'relig', 
+        'p21d27001': 'd01', 
+        'p21d27002': 'd02', 
+        'p21d27003': 'd03', 
+        'p21d27004': 'd04',
+        'p21d11002': 'label'
+    }, inplace=True
+)
+
+df_21['year'] = 2021
+
+df_21.head()
+```
+<img width="1053" height="441" alt="image" src="https://github.com/user-attachments/assets/5dab23b1-be80-46e8-8abb-f836cafcaa40" />
+
+<br>
+<br>
+
+2. 변수 변환
+* 유/무직자 컬럼 병합 및 정제
+```python
+# 유직자 번호 변경
+df_all['job_o'] = df_all['job_o'].replace({'1': '5', '2': '6', '3': '7', '4': '2', '9999': '8'})
+print(df_all['job_o'].value_counts())
+```
+
+<br>
+
+* 결측치 제거
+```python
+df_all = df_all[df_all['label'].str.strip() != ''].reset_index(drop=True)
+```
+
+<br>
+
+* 이탈(churn) 변수 정의
+```python
+df_all['next_year_label'] = df_all.groupby('pid')['label'].shift(-1) # 각 pid 그룹에 대한 다음 연도의 label 값 반환
+
+churn_conditions = [
+    (df_all['label'] == '2') & (df_all['next_year_label'].notna()) & (df_all['next_year_label'] != '2'),
+    (df_all['label'] == '2') & (df_all['next_year_label'].notna()) & (df_all['next_year_label'] == '2')
+]
+churn_choices = [1, 0] # 1: 이탈 (Churn), 0: 비이탈 (Not Churn)
+
+df_all['churn'] = np.select(churn_conditions, churn_choices, default=np.nan)
+```
+
+<br>
+
+* 필터링
+```python
+df_model_base = df_all[df_all['churn'].notna()].copy() # 'churn'값이 NaN이 아닌 경우 필터링
+```
+
+<br>
+
+* 데이터 맵핑
+  - 데이터 사용 빈도에 대해 맵핑
+  
+  |<img width="238" height="176" alt="image" src="https://github.com/user-attachments/assets/8cecaa34-7fbf-4067-a515-5eb51792f206" /> | <img width="196" height="224" alt="image" src="https://github.com/user-attachments/assets/e1f9bf73-ceb4-403b-9005-fef9ad932e19" />|
+  |---|---|
+  |기존값|맵핑 후|
+
+<br>
+  
+* 
+<img width="930" height="205" alt="image" src="https://github.com/user-attachments/assets/df8436b7-dd45-466b-82b7-e27352603102" />
+
+3. 
  
 <br>
 <br>
