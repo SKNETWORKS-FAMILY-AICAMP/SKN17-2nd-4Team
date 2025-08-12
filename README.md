@@ -288,7 +288,7 @@ df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  #
 <br>
 
 #### * 중요도 추출
-<img width="842" height="752" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EC%A4%91%EC%9A%94%EB%8F%84.png" />
+<img width="500" height="600" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EC%A4%91%EC%9A%94%EB%8F%84.png" />
 
  
 <br>
@@ -530,8 +530,13 @@ y_prob_test = best_xgb_clf.predict_proba(X_test)[:, 1]
 
 <br>
 <br>
+
 -----
 
 # 8. 한 줄 회고
 |이름|내용|
 |:---:|:---|
+|김주영| |
+|전상아| |
+|조해리|설문조사 데이터여서 데이터를 파악하는 것부터가 정말 힘들었고, 전처리 과정에서도 시행착오가 많았다. 특히 모델 성능이 어떻게 돌려도 63%에서 오르지 않아 어려움을 겪었지만, 전처리 과정에서의 실수를 발견하고 수정했을 때 성능이 확실히 개선되는 경험을 했다. 이를 통해 데이터 분석에서 전처리의 중요성을 크게 느낄 수 있었다.|
+|최우진| |
