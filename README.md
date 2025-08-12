@@ -5,19 +5,15 @@
 #  1. 팀 소개
 ### ▶️ 팀명 :  **공공삼**
 
-'공공삼'은 00년생 3명과 03년생 1명이 하나가 되어 팀을 이루었다는 뜻입니다. 
+#### '공공삼'은 00년생 3명과 03년생 1명이 하나가 되어 팀을 이루었다는 뜻과 세 가지 '공'인 공유, 공감, 공조를 핵심가치로 조화로운 팀을 이루겠다는 의미를 담았습니다. 
 
-또, 세 가지 '공'인 공유, 공감, 공조를 핵심가치로 조화로운 팀을 이루겠다는 의미를 담았습니다. 
-
-<br>
 <br>
 
 ### ▶️ 팀원 소개 
-|이름|이름|이름|이름|
-|:---|:---|:---|:---|
 |[김주영](https://github.com/samkim7788)|[전상아](https://github.com/sang-a-le)|[조해리](https://github.com/Haer111)|[최우진](https://github.com/CHUH00)|
-|<img width="400" height="400" alt="C-QmMK2s_400x400" src="https://github.com/user-attachments/assets/ceacd5be-96f2-49d5-9546-eaa7cfe67c74" />|
-<br>
+|:---|:---|:---|:---|
+|<img width="100" height="100" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EB%B8%8C%EB%A0%88%EB%93%9C.png" />|<img width="100" height="100" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EB%B0%80%ED%81%AC.png" />|<img width="100" height="100" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EC%B4%88%EC%BD%94.png" />|<img width="100" height="100" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EA%B0%90%EC%9E%90%EC%B9%A9.png" />|
+
 <br>
 
 -----
@@ -25,19 +21,18 @@
 # 2. 프로젝트 개요
 
 ### ▶️ 프로젝트 명 
-# **떠날까? 말까?**
-SNS 사용자 데이터를 기반으로 페이스북 이탈 가능성 예측 모델 제공
 
-<br>
+## **떠날까? 말까?**
+#### SNS 사용자 데이터를 기반으로 페이스북 이탈 가능성 예측 모델 제공
+
 <br>
 
 ### ▶️ 프로젝트 소개 
 해당 프로젝트는 SNS 사용자 데이터를 기반으로 개인 특성을 분석하여 향후 플랫폼 이탈 가능성을 예측하는 것을 목표로 함. 특히, 페이스북을 1순위로 선택한 사용자를 기반으로 페이스북 사용자 이탈 가능성 예측
 
 <br>
-<br>
 
-### ▶️ 프로젝트 필요성(배경)
+### ▶️ 프로젝트 배경
 
 <img width="551" height="210" alt="image" src="https://github.com/user-attachments/assets/3954c807-02cf-4edb-ab48-04ec4bec4a9d" />
 
@@ -71,40 +66,39 @@ SNS 사용자 데이터를 기반으로 페이스북 이탈 가능성 예측 모
 <br>
 <br>
 
-| | |
-|:---|:---|
 |<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/639bc8a7-162e-41fd-b1b6-89720eb2fd2c" />|<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/86dc6a9c-85ed-4db8-a7c7-95c873108c5d" />|
+|:---|:---|
 | 페이스북 앱 사용자 및 사용시간 추이 | 인스타그램, 페이스북 앱 월간 사용자 추이 |
 
 
-위의 그래프와 같이 페이스북의 사용 추이가 계속 감소되고 있습니다. 
+위의 그래프와 같이 페이스북의 사용 추이가 지속적으로 감소되고 있습니다. 
 
 
-요즘의 2030 세대의 경우, 학창시절 페이스북을 가장 주된 SNS로 사용했던 세대이기도 하지만 페이스북 이탈률이 가장 많은 세대라는 것을 확인할 수 있습니다. 
-이에 따라 저희는 SNS 사용자의 개인 특성 데이터를 기반으로 페이스북 이탈률 예측을 하고자 합니다. 
+#### 현재 2030 세대의 경우, 학창시절 페이스북을 가장 주된 SNS로 사용했던 세대이기도 하지만 페이스북 이탈률이 가장 많은 세대라는 것을 확인할 수 있습니다. 
+#### 과거 많은 파급력을 주었던 페이스북의 사용자 감소에 대한 의문이 해당 프로젝트 주제 선정에 영향을 주었고, 이에 따라 저희는 SNS 사용자의 개인 특성 데이터를 기반으로 페이스북 이탈률 예측을 하고자 합니다. 
 
 <br>
 <br>
 
 ### ▶️ 프로젝트 목표 
+#### 1. 사용자 특성 데이터를 이용한 페이스북 사용자 이탈률 파악
+#### 2. 실제 데이터 주입 시 이탈률 예측
+#### 3. 페이스북 외의 다른 SNS의 이탈률 파악으로 인사이트 확장
 
 
 <br>
 <br>
 
 ### ▶️ 수집데이터 설명
-🔹[ 자동차등록현황보고 ]
-- 출처: 국토교통부 통계누리
-- 수집 방법: 국토교통부 통계누리에서 제공하는 연도별 통계 자료 엑셀 파일 다운로드
+[미디어통계포털 미디어패널조사]
+- 출처 : 미디어 통계 포털(https://stat.kisdi.re.kr/)
+- 수집 방법 : 미디어 통계 포털에서 제공하는 연도별 한국 미디어 패널 조사 데이터셋 csv 파일 다운로드.
 - 데이터 출처 및 범위
-   - 수집 데이터 기간: 2020년 1월 ~ 2024년 12월
-   - 데이터 규모: 약 16,320여 개의 데이터
-   - 지역적 범위: 전국
-   - 주요 변수
-      : 연도, 지역, 연료종류, 등록현황
-- 데이터 설명
-     : 국토교통부에서 대한민국 교통행정의 기초자료로 활용하기 위해 시·도별로 등록된 자동차의 제반사항을 파악한 자료로 지역별 등록 차량 현황 자료임.
-       연도별 차량 수와 분포(차종, 연료별)를 지역별 기준에 따라 등록 현황을 판단할 수 있으며, 본 프로젝트에서는 이 데이터를 기반으로 지역별 보조금 변동이 친환경차량에 주는 영향 파악에 활용하였음.
+    - 수집 데이터 기간: 2019년 1월 ~ 2024년 12월
+    - 데이터 범위 : 개인 정보 및 미디어 이용 중 SNS 사용 관련 질문 
+    - 주요 변수 : SNS 사용 빈도, 개인정보(나이, 성별, 학력, 결혼 여부, 종교, 수입 등), 사용하는 SNS 종류
+- 설명 
+    : 미디어 통계 포털에서 이루어진 한국 미디어 패널 조사 데이터셋을 분석하여 고객의 다양한 특성(나이, 성별, 학력, 결혼 여부, 종교, 수입 등)과 SNS 사용 빈도 관련 설문 데이터에 따른 페이스북 이탈 가능성을 예측
 
 <br>
 <br>
@@ -112,9 +106,10 @@ SNS 사용자 데이터를 기반으로 페이스북 이탈 가능성 예측 모
 -----
 
 # 3. 기술 스택
-|Python|MySQL|Github|Pandas|Matplotlib|Streamlit|Selenium|
-|---|---|:---|---|---|---|---|
-|<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">|<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">|<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">|<img src="https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white">|<img src='https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black'>|<img src='https://img.shields.io/badge/Streamlit-%23FE4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white'>|<img src='https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white'>|
+|개발도구|협업도구|프로그래밍 언어|데이터 전처리|데이터 시각화|머신러닝|
+|---|---|---|---|---|---|
+|vscode|Github|Python|Pandas / numpy|Matplotlib|scikit learn|
+| <img src='https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white'>|<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">|<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">|<img src="https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white"> <img src='https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white'>|<img src='https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black'>| <img src="https://img.shields.io/badge/Scikit-learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>|
 
 <br>
 <br>
