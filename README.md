@@ -575,7 +575,12 @@ grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 
 grid_search.fit(X_train, y_train)
 grid_search.best_params_
+```
+<img width="432" height="238" alt="image" src="https://github.com/user-attachments/assets/d9b46fda-b1ba-4d91-aa1d-66ac98c79f3f" />
 
+<br>
+
+```python
 best_xgb_clf = grid_search.best_estimator_
 
 y_pred_train = best_xgb_clf.predict(X_train)
