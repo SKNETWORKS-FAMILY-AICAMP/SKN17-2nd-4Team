@@ -125,7 +125,7 @@
 -----
 
 # 5. 데이터 전처리 결과서 (EDA)
-## 👉 기본 데이터 (`21년도~`24년도, 4개년)
+## 👉 기본 데이터 (21년도~24년도, 4개년)
 ### 1. 데이터 로드 
 ```python
 df = pd.read_csv('./data/p21v31_KMP_csv.csv', encoding='CP949')
@@ -213,15 +213,16 @@ df_model_base = df_all[df_all['churn'].notna()].copy() # 'churn'값이 NaN이 �
 * 최종 기초 데이터 
 <img width="930" height="205" alt="image" src="https://github.com/user-attachments/assets/df8436b7-dd45-466b-82b7-e27352603102" />
 
+<br>
+<br>
+
 ### 3. EDA
 * 특성별 이탈 분석
 <img width="1790" height="480" alt="image" src="https://github.com/user-attachments/assets/4e29ff38-5992-4bb3-8888-5d3c067fde4f" />
 <img width="1790" height="480" alt="image" src="https://github.com/user-attachments/assets/2da35fea-d1b4-415d-816f-2a663ef4399c" />
 <img width="634" height="391" alt="image" src="https://github.com/user-attachments/assets/698468a0-6818-487a-af33-69bba79b8afe" />
 
-
 <br>
-
 
 * 변수별 상관계수 
 <img width="1038" height="360" alt="image" src="https://github.com/user-attachments/assets/0f770e73-60b6-464a-9fab-b468902a28cc" />
@@ -337,10 +338,14 @@ df_model_base = df_all[df_all['churn'].notna()].copy() # 'churn'값이 NaN이 �
 
 → 총 31개 피처, 1712개 로우 수 생성
 
+<br>
+<br>
 
 ### 3. EDA
 * 변수별 상관계수 
 <img width="842" height="752" alt="image" src="https://github.com/user-attachments/assets/723d36c7-57d0-4725-97d8-5fb8a5d00063" />
+
+<br>
 
 * 파생 변수 추가
 ```python
@@ -354,6 +359,7 @@ df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  #
 ```
 → 모델 성능 추출 간 변화 내용 없음. 파생변수 미사용.
 
+<br>
 
 * 중요도 추출
 <img width="842" height="752" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EC%A4%91%EC%9A%94%EB%8F%84.png" />
@@ -365,9 +371,222 @@ df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  #
 -----
 
 # 6. 인공지능 학습 결과서 
+### 1. 최초 학습 - XGBclassifier
+```python
+# X, y 준비
+df = df_final.copy()
+df.drop(columns=["pid", "label_x", "label_y", "year_x", "year_y", "gender_y"], inplace=True)
+
+X = df.drop(columns=["churn"])
+y = df["churn"]
+
+# 범주형 라벨 인코딩
+X_encoded = X.copy()
+for col in X_encoded.select_dtypes(include="object").columns:
+    le = LabelEncoder()
+    X_encoded[col] = le.fit_transform(X_encoded[col].astype(str))
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X_encoded, y, test_size=0.2, random_state=42, stratify=y
+)
+
+model = XGBClassifier(
+    n_estimators=50,
+    max_depth=2,
+    learning_rate=0.1,
+    random_state=42,
+    eval_metric='logloss'
+)
+# 모델 학습
+model.fit(X_train, y_train)
+
+# 예측 및 평가
+y_train_pred = model.predict(X_train)
+y_train_prob = model.predict_proba(X_train)[:, 1]
+y_test_pred = model.predict(X_test)
+y_test_prob = model.predict_proba(X_test)[:, 1]
+```
+<img width="545" height="560" alt="image" src="https://github.com/user-attachments/assets/ca5404b3-9353-4c15-9c61-c39e694fa421" />
+
+<br>
+
+### 2. RandomForest
+```python
+# 파라미터 후보
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'max_depth': [4, 6, 8, None],
+    'min_samples_split': [2, 5, 8, 10],
+    'min_samples_leaf': [1, 2, 3, 4],
+    'max_features': ['sqrt', 0.5, None],
+    'class_weight': [None, 'balanced']
+}
+
+# 모델 생성
+rf = RandomForestClassifier(random_state=42)
+
+# GridSearchCV 설정
+grid_search = GridSearchCV(
+    estimator=rf,
+    param_grid=param_grid,
+    scoring='f1',
+    cv=5,
+    n_jobs=-1,
+    verbose=2
+)
+
+# 학습
+grid_search.fit(X_train, y_train)
+
+# 최적 파라미터 & 교차검증 성능
+print("Best Parameters:", grid_search.best_params_)
+print("Best CV F1 Score:", grid_search.best_score_)
+
+# 최적 모델
+best_rf = grid_search.best_estimator_
+
+# 과적합 확인
+train_acc = best_rf.score(X_train, y_train)
+test_acc = best_rf.score(X_test, y_test)
+print(f"Train Accuracy: {train_acc:.4f}")
+print(f"Test Accuracy : {test_acc:.4f}")
+print(f"Overfitting Gap: {train_acc - test_acc:.4f}")
+
+# 분류 리포트
+y_pred = best_rf.predict(X_test)
+print(classification_report(y_test, y_pred))
+```
+<img width="1423" height="339" alt="image" src="https://github.com/user-attachments/assets/d13bbada-8a07-4335-9207-22402418dc9e" />
 
 
- 
+<br>
+
+### 3. HistGradientBoost
+```python
+smote = SMOTE(random_state=42)
+X_resample, y_resample = smote.fit_resample(X, y)
+
+X_encoded = X_resample.copy()
+for col in X_encoded.select_dtypes(include='object').columns:
+    le = LabelEncoder()
+    X_encoded[col] = le.fit_transform(X_encoded[col].astype(str))
+
+X_train, X_test, y_train, y_test = train_test_split(X_encoded, y_resample, random_state=42)
+
+param_grid = {
+    'max_iter': [100],
+    'max_depth': [5],
+    'learning_rate': [0.3],
+    'l2_regularization': [10],
+    'max_bins': [225]
+}
+
+model = HistGradientBoostingClassifier(random_state=42)
+
+grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
+
+grid_search.fit(X_train, y_train)
+grid_search.best_params_
+
+best_hist_gb_clf = grid_search.best_estimator_
+
+y_pred_train = best_hist_gb_clf.predict(X_train)
+y_prob_train = best_hist_gb_clf.predict_proba(X_train)[:, 1]
+
+y_pred_test = best_hist_gb_clf.predict(X_test)
+y_prob_test = best_hist_gb_clf.predict_proba(X_test)[:, 1]
+```
+<img width="528" height="542" alt="image" src="https://github.com/user-attachments/assets/cbfee80e-f39a-4e1e-aa23-6da47be5010c" />
+
+<br>
+
+### 4. GradientBoost
+```python
+# 파라미터 최적화
+param_grid = {
+    'n_estimators': [100, 300, 500],      # 트리 개수
+    'learning_rate': [0.1, 0.05, 0.01],   # 작을수록 성능 ↑, 대신 트리 수 필요
+    'max_depth': [3, 5, 7],               # 개별 트리 최대 깊이
+    'min_samples_split': [2, 5, 10],      # 노드 분할 최소 샘플 수
+    'min_samples_leaf': [1, 3, 5],        # 리프 노드 최소 샘플 수
+    'subsample': [0.8, 1.0],              # 샘플링 비율
+    'max_features': ['sqrt', 'log2', None]# 특성 샘플링
+}
+
+model = GradientBoostingClassifier(random_state=42)
+
+grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
+
+grid_search.fit(X_train, y_train)
+grid_search.best_params_
+
+best_hist_gb_clf = grid_search.best_estimator_
+
+y_pred_train = best_hist_gb_clf.predict(X_train)
+y_prob_train = best_hist_gb_clf.predict_proba(X_train)[:, 1]
+
+y_pred_test = best_hist_gb_clf.predict(X_test)
+y_prob_test = best_hist_gb_clf.predict_proba(X_test)[:, 1]
+
+print("\n===== XGBoost - Train Set Evaluation =====")
+print(classification_report(y_train, y_pred_train))
+print(f'{roc_auc_score(y_train, y_prob_train):.4f}')
+
+print("\n===== XGBoost - Test Set Evaluation =====")
+print(classification_report(y_test, y_pred_test))
+print(f'{roc_auc_score(y_test, y_prob_test):.4f}')
+```
+<img width="539" height="553" alt="image" src="https://github.com/user-attachments/assets/fe912a84-7533-4966-b2b0-4d163918bfb8" />
+
+
+
+<br>
+
+### 5. 최종 : XGBooat - 규제 
+```python
+X = df_final.drop(['churn'], axis=1)
+y = df_final['churn']
+
+smote = SMOTE(random_state=42)
+X_resample, y_resample = smote.fit_resample(X, y)
+
+X_encoded = X_resample.copy()
+for col in X_encoded.select_dtypes(include='object').columns:
+    le = LabelEncoder()
+    X_encoded[col] = le.fit_transform(X_encoded[col].astype(str))
+
+X_train, X_test, y_train, y_test = train_test_split(X_encoded, y_resample, random_state=42)
+
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'learning_rate': [0.01, 0.07, 0.1],
+    'max_depth': [3, 5, 10],
+    'min_child_weight': [0.01, 0.05, 0.1],
+    'subsample': [0.1, 0.5, 0.8],
+    'colsample_bytree': [1.0],
+    'reg_lambda': [10],
+    'reg_alpha': [0],
+    'gamma': [0, 1]
+}
+
+model = XGBClassifier(random_state=42)
+
+grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
+
+grid_search.fit(X_train, y_train)
+grid_search.best_params_
+
+best_xgb_clf = grid_search.best_estimator_
+
+y_pred_train = best_xgb_clf.predict(X_train)
+y_prob_train = best_xgb_clf.predict_proba(X_train)[:, 1]
+
+y_pred_test = best_xgb_clf.predict(X_test)
+y_prob_test = best_xgb_clf.predict_proba(X_test)[:, 1]
+```
+<img width="536" height="546" alt="image" src="https://github.com/user-attachments/assets/dd6c2090-319f-4c99-a61d-3b7e04d63950" />
+
+
 <br>
 <br>
 
