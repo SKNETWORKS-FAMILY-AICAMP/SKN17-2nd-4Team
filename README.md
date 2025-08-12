@@ -356,9 +356,9 @@ df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  #
 
 
 * 중요도 추출
-<img width="842" height="752" alt="image" src="https://github.com/user-attachments/assets/80d1d544-f0fa-4f01-acdf-6a39cde6162f" />
+<img width="842" height="752" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EC%A4%91%EC%9A%94%EB%8F%84.png" />
 
-  
+ 
 <br>
 <br>
 
