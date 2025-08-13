@@ -272,7 +272,7 @@ df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  #
 
 <br>
 
-### → 모델 성능 추출 간 변화 내용 없음. 파생변수 미사용.
+→ 모델 성능 추출 간 변화 내용 없음. 파생변수 미사용.
 
 <br>
 <br>
@@ -328,6 +328,8 @@ print(f'{roc_auc_score(y_test, y_pred_test):.4f}')
 * Train : 0.5389
 * Test : 0.5051
 * Overfitting Gap : 0.0338
+<br>
+
   → 전반적인 F1과 정확도에서 낮은 수준의 성능. 과대적합은 없지만, 소수 클래스인 이탈자에 대한 재현율이 떨어짐. 
 
 
@@ -378,7 +380,11 @@ print(f"ROC AUC Score: {roc_auc_score(y_test, y_prob_test_xgb):.4f}")
 * Train : 0.8129
 * Test : 0.6762
 * Overfitting Gap : 0.1367
+<br>
+
   → 랜덤포레스트 모델보다 성능 증가.
+<br>
+
   → 규제 부족 문제와 데이터 불균형으로 이탈자에 대한 재현율이 다소 떨어짐.
 
 <br>
@@ -425,7 +431,9 @@ print(f'{roc_auc_score(y_test, y_prob_test):.4f}')
 
 * Train : 0.9402
 * Test : 0.7751
-* Overfitting Gap : 0.1651
+* Overfitting Gap : 0.1651  
+<br>
+
   → 과적합 발생하지만 성능 안정적적
   
 
@@ -471,7 +479,12 @@ y_prob_test = best_hist_gb_clf.predict_proba(X_test)[:, 1]
 * Train : 0.9686
 * Test : 0.8090
 * Overfitting Gap : 0.1596
-  → 
+<br>
+
+  → Overfitting Gap 감소 및 이탈자의 재현율 개선.
+<br>
+
+  → 학습시간이 길어지고, 모델 복잡도 증가 
 
 <br>
 <br>
@@ -533,6 +546,16 @@ print(f'{roc_auc_score(y_test, y_prob_test):.4f}')
 ```
 <img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%B5%9C%EC%A2%85xgboost.png" />
 
+* Train : 0.8918
+* Test : 0.8032
+* Overfitting Gap : 0.0886
+<br>
+
+  → SMOTE로 데이터의 불균형 완화. 깊이·정규화·샘플링 파라미터를 통해 과적합을 효과적으로 억제
+<br>
+
+  → 재현율과 정확도의 균형 확보. 운영환경에서 안정적인 확률 기반 예측 구조 구축.
+
 <br>
 <br>
 
@@ -566,6 +589,8 @@ matched_df.head(10)
 ```
 <img width="1078" height="366" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%8B%A4%EC%A0%9C%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%85%8C%EC%8A%A4%ED%8A%B8.png" />
 
+→ 확률이 높을수록 실제 이탈 여부와 일치하는 경향.
+→ 23년도 실제 데이터에서도 안정적으로 작동함을 확인. 
 
 <br>
 <br>
@@ -578,6 +603,14 @@ matched_df.head(10)
 
 ### streamlit 결과 화면
 ![스트림릿2](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EB%A6%BF3.png)
+
+<br>
+<br>
+
+-----
+# 한계점
+#### 1. 패널 데이터 사용으로 인한 사용자 편향 발생 가능성이 있음. 
+#### 2. '페이스북' 사용자가 이미 이탈이 많이 일어난 상태였기 때문에 전체 데이터 로우 수가 적었음. 
 
 <br>
 <br>
