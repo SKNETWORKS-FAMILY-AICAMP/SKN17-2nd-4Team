@@ -291,50 +291,40 @@ df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  #
 
 ### 🔹1. 최초 학습 - RandomForest
 ```python
-# 파라미터 후보
+# 파라미터 최적화
 param_grid = {
-    'n_estimators': [100, 200, 300],
-    'max_depth': [4, 6, 8, None],
-    'min_samples_split': [2, 5, 8, 10],
-    'min_samples_leaf': [1, 2, 3, 4],
-    'max_features': ['sqrt', 0.5, None]
+    'n_estimators': [100, 200, 300],      
+    'max_depth': [3, 4, 5],               
+    'min_samples_split': [5, 8, 10],      
+    'min_samples_leaf': [1, 3, 5],                
+    'max_features': ['sqrt', 'log2', None]
 }
 
-# 모델 생성
-rf = RandomForestClassifier(random_state=42)
+model = RandomForestClassifier(random_state=42)
 
-# GridSearchCV 설정
-grid_search = GridSearchCV(
-    estimator=rf,
-    param_grid=param_grid,
-    scoring='f1',
-    cv=5,
-    n_jobs=-1,
-    verbose=2
-)
+grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 
-# 학습
 grid_search.fit(X_train, y_train)
+grid_search.best_params_
 
-# 최적 파라미터 & 교차검증 성능
-print("Best Parameters:", grid_search.best_params_)
-print("Best CV F1 Score:", grid_search.best_score_)
+best_random_clf = grid_search.best_estimator_
 
-# 최적 모델
-best_rf = grid_search.best_estimator_
+y_pred_train = best_random_clf.predict(X_train)
+y_prob_train = best_random_clf.predict_proba(X_train)[:, 1]
 
-# 과적합 확인
-train_acc = best_rf.score(X_train, y_train)
-test_acc = best_rf.score(X_test, y_test)
-print(f"Train Accuracy: {train_acc:.4f}")
-print(f"Test Accuracy : {test_acc:.4f}")
-print(f"Overfitting Gap: {train_acc - test_acc:.4f}")
+y_pred_test = best_random_clf.predict(X_test)
+y_prob_test = best_random_clf.predict_proba(X_test)[:, 1]
 
-# 분류 리포트
-y_pred = best_rf.predict(X_test)
-print(classification_report(y_test, y_pred))
+print("\n===== RandomForest - Train Set Evaluation =====")
+print(classification_report(y_train, y_pred_train))
+print(f'{roc_auc_score(y_train, y_pred_train):.4f}')
+
+print("\n===== RandomForest - Test Set Evaluation =====")
+print(classification_report(y_test, y_pred_test))
+print(f'{roc_auc_score(y_test, y_pred_test):.4f}')
 ```
-<img width="1423" height="339" alt="image" src="https://github.com/user-attachments/assets/d13bbada-8a07-4335-9207-22402418dc9e" />
+<img width="320" height="320" alt="image" src="https://github.com/user-attachments/assets/a9e296d3-302f-4e40-ab33-55130732c27d" />
+
 
 <br>
 <br>
@@ -342,40 +332,41 @@ print(classification_report(y_test, y_pred))
 
 ### 🔹2. XGBclassifier
 ```python
-X = df_final.drop(['churn', 'label_x', 'label_y'], axis=1)
-y = df_final['churn']
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=42)
 
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-print("="*20, "XGBoost 모델", "="*20)
-xgb = XGBClassifier(
-    n_estimators=50,
-    max_depth=2,
-    learning_rate=0.3,
-    random_state=42
-)
+# 파라미터 최적화
+param_grid = {
+    'n_estimators': [30, 50, 80],      
+    'max_depth': [2, 5, 8],
+    'learning_rate': [0.1, 0.3, 0.5],              
+}
 
-xgb.fit(X_train_scaled, y_train)
+model = XGBClassifier(random_state=42)
+grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 
-y_pred_train_xgb = xgb.predict(X_train_scaled)
-y_pred_proba_train_xgb = xgb.predict_proba(X_train_scaled)[:, 1]
+grid_search.fit(X_train, y_train)
+grid_search.best_params_
 
+best_xgb_clf = grid_search.best_estimator_
+
+y_pred_train_xgb = best_xgb_clf.predict(X_train)
+y_prob_train_xgb = best_xgb_clf.predict_proba(X_train)[:, 1]
+
+y_pred_test_xgb = best_xgb_clf.predict(X_test)
+y_prob_test_xgb = best_xgb_clf.predict_proba(X_test)[:, 1]
 
 print("===== XGBoost - Train Set Evaluation =====")
 print(classification_report(y_train, y_pred_train_xgb))
-print(f"ROC AUC Score: {roc_auc_score(y_train, y_pred_proba_train_xgb):.4f}") # <--- 이 부분 수정
+print(f"ROC AUC Score: {roc_auc_score(y_train, y_prob_train_xgb):.4f}") 
 
-y_pred_test_xgb = xgb.predict(X_test_scaled)
-y_pred_proba_test_xgb = xgb.predict_proba(X_test_scaled)[:, 1]
 
 print("\n===== XGBoost - Test Set Evaluation =====")
 print("Classification Report:")
 print(classification_report(y_test, y_pred_test_xgb))
-print(f"ROC AUC Score: {roc_auc_score(y_test, y_pred_proba_test_xgb):.4f}")
+print(f"ROC AUC Score: {roc_auc_score(y_test, y_prob_test_xgb):.4f}")
 ```
 <img width="320" height="320" alt="image" src="https://github.com/user-attachments/assets/120307e9-56cf-4dcb-af73-45da1ee19ef3" />
 
@@ -389,13 +380,13 @@ print(f"ROC AUC Score: {roc_auc_score(y_test, y_pred_proba_test_xgb):.4f}")
 ```python
 # 파라미터 최적화
 param_grid = {
-    'n_estimators': [100, 300, 500],      # 트리 개수
-    'learning_rate': [0.1, 0.05, 0.01],   # 작을수록 성능 ↑, 대신 트리 수 필요
-    'max_depth': [3, 5, 7],               # 개별 트리 최대 깊이
-    'min_samples_split': [2, 5, 10],      # 노드 분할 최소 샘플 수
-    'min_samples_leaf': [1, 3, 5],        # 리프 노드 최소 샘플 수
-    'subsample': [0.8, 1.0],              # 샘플링 비율
-    'max_features': ['sqrt', 'log2', None]# 특성 샘플링
+    'n_estimators': [100, 300, 500],      
+    'learning_rate': [0.1, 0.05, 0.01],   
+    'max_depth': [3, 5, 7],               
+    'min_samples_split': [2, 5, 10],      
+    'min_samples_leaf': [1, 3, 5],        
+    'subsample': [0.8, 1.0],              
+    'max_features': ['sqrt', 'log2', None]
 }
 
 model = GradientBoostingClassifier(random_state=42)
@@ -405,7 +396,6 @@ grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 grid_search.fit(X_train, y_train)
 grid_search.best_params_
 ```
-<img width="300" height="150" alt="image" src="https://github.com/user-attachments/assets/1426aee0-b43e-468d-a921-8be50ff009f3" />
 
 ```python
 best_hist_gb_clf = grid_search.best_estimator_
@@ -457,8 +447,6 @@ grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 grid_search.fit(X_train, y_train)
 grid_search.best_params_
 ```
-<img width="300" height="200" alt="image" src="https://github.com/user-attachments/assets/833242e3-b589-40b5-a18a-2c1767e2db97" />
-
 
 ```python
 best_hist_gb_clf = grid_search.best_estimator_
@@ -509,7 +497,6 @@ grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 grid_search.fit(X_train, y_train)
 grid_search.best_params_
 ```
-<img width="300" height="200" alt="image" src="https://github.com/user-attachments/assets/d9b46fda-b1ba-4d91-aa1d-66ac98c79f3f" />
 
 <br>
 
