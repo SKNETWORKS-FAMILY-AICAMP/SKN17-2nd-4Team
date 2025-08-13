@@ -131,7 +131,7 @@
 -----
 
 # 4. WBS
-![WBS이미지](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/WBS.png)
+![WBS이미지2](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/WBS_2.png)
 
 <br>
 <br>
@@ -200,7 +200,7 @@ print(df_all['job_o'].value_counts())
 
 #### * 라벨데이터 재생성
 ```python
-# 라벨 기초 데이터 변환 (3순위 포함)
+# 라벨 기초 데이터 변환
 df_24['label'] = (df_24[['label_1', 'label_2', 'label_3']].isin(['2']).any(axis=1).astype(int))
 print(sum(df_24['label'] == 1), sum(df_24['label'] == 0))
 
@@ -300,40 +300,44 @@ df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  #
 # 6. 인공지능 학습 결과서 
 ### 🔹1. 최초 학습 - XGBclassifier
 ```python
-# X, y 준비
-df = df_final.copy()
-df.drop(columns=["pid", "label_x", "label_y", "year_x", "year_y", "gender_y"], inplace=True)
+X = df_final.drop(['churn', 'label_x', 'label_y'], axis=1)
+y = df_final['churn']
 
-X = df.drop(columns=["churn"])
-y = df["churn"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=42)
 
-# 범주형 라벨 인코딩
-X_encoded = X.copy()
-for col in X_encoded.select_dtypes(include="object").columns:
-    le = LabelEncoder()
-    X_encoded[col] = le.fit_transform(X_encoded[col].astype(str))
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X_encoded, y, test_size=0.2, random_state=42, stratify=y
-)
-
-model = XGBClassifier(
+print("="*20, "XGBoost 모델", "="*20)
+xgb = XGBClassifier(
     n_estimators=50,
     max_depth=2,
-    learning_rate=0.1,
-    random_state=42,
-    eval_metric='logloss'
+    learning_rate=0.3,
+    random_state=42
 )
-# 모델 학습
-model.fit(X_train, y_train)
 
-# 예측 및 평가
-y_train_pred = model.predict(X_train)
-y_train_prob = model.predict_proba(X_train)[:, 1]
-y_test_pred = model.predict(X_test)
-y_test_prob = model.predict_proba(X_test)[:, 1]
+xgb.fit(X_train_scaled, y_train)
+
+y_pred_train_xgb = xgb.predict(X_train_scaled)
+y_pred_proba_train_xgb = xgb.predict_proba(X_train_scaled)[:, 1]
+
+
+print("===== XGBoost - Train Set Evaluation =====")
+print(classification_report(y_train, y_pred_train_xgb))
+print(f"ROC AUC Score: {roc_auc_score(y_train, y_pred_proba_train_xgb):.4f}") # <--- 이 부분 수정
+
+y_pred_test_xgb = xgb.predict(X_test_scaled)
+y_pred_proba_test_xgb = xgb.predict_proba(X_test_scaled)[:, 1]
+
+print("\n===== XGBoost - Test Set Evaluation =====")
+print("Classification Report:")
+print(classification_report(y_test, y_pred_test_xgb))
+print(f"ROC AUC Score: {roc_auc_score(y_test, y_pred_proba_test_xgb):.4f}")
 ```
-<img width="320" height="320" alt="image" src="https://github.com/user-attachments/assets/ca5404b3-9353-4c15-9c61-c39e694fa421" />
+<img width="320" height="320" alt="image" src="https://github.com/user-attachments/assets/120307e9-56cf-4dcb-af73-45da1ee19ef3" />
+
+
 
 <br>
 <br>
@@ -406,7 +410,7 @@ param_grid = {
     'max_depth': [3, 5, 8],
     'learning_rate': [0.1, 0.3, 0.5],
     'l2_regularization': [5, 10, 15],
-    'max_bins': [225]
+    'max_bins': [200, 225, 250]
 }
 
 model = HistGradientBoostingClassifier(random_state=42)
@@ -415,7 +419,11 @@ grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 
 grid_search.fit(X_train, y_train)
 grid_search.best_params_
+```
+<img width="300" height="200" alt="image" src="https://github.com/user-attachments/assets/833242e3-b589-40b5-a18a-2c1767e2db97" />
 
+
+```python
 best_hist_gb_clf = grid_search.best_estimator_
 
 y_pred_train = best_hist_gb_clf.predict(X_train)
@@ -448,7 +456,10 @@ grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 
 grid_search.fit(X_train, y_train)
 grid_search.best_params_
+```
+<img width="300" height="150" alt="image" src="https://github.com/user-attachments/assets/1426aee0-b43e-468d-a921-8be50ff009f3" />
 
+```python
 best_hist_gb_clf = grid_search.best_estimator_
 
 y_pred_train = best_hist_gb_clf.predict(X_train)
@@ -520,6 +531,10 @@ y_prob_test = best_xgb_clf.predict_proba(X_test)[:, 1]
 ```
 <img width="320" height="320" alt="image" src="https://github.com/user-attachments/assets/dd6c2090-319f-4c99-a61d-3b7e04d63950" />
 
+<br>
+
+## 실제 데이터 확인
+- 
 
 <br>
 <br>
@@ -527,7 +542,11 @@ y_prob_test = best_xgb_clf.predict_proba(X_test)[:, 1]
 -----
 
 # 7. 수행결과
+### streamlit 초기 화면
+![스트림릿](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EB%A6%BF.png)
 
+### streamlit 결과 화면
+![스트림릿2](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EB%A6%BF3.png)
 
 <br>
 <br>
