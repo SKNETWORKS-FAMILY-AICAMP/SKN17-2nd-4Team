@@ -123,7 +123,7 @@
 |개발도구|협업도구|프로그래밍 언어|데이터 전처리|데이터 시각화|머신러닝|
 |---|---|---|---|---|---|
 |vscode|Github|Python|Pandas / numpy|Matplotlib / seabon|scikit learn|
-| <img src='https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white'>|<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">|<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">|<img src="https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white"> <img src='https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white'>|<img src='https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black'> | <img src="https://img.shields.io/badge/Scikit-learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>|
+| <img src='https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white'>|<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">|<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">|<img src="https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white"> <img src='https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white'>|<img src='https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black'> <img src='https://img.shields.io/badge/seaborn-31859C?style=for-the-badge&logo=Seaborn&logoColor=white'> | <img src="https://img.shields.io/badge/Scikit-learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>|
 
 <br>
 <br>
@@ -567,8 +567,8 @@ matched_df.head(10)
 
 # 8. 한 줄 회고
 |이름|내용|
-|:---:|:---|
+|:---:|---|
 |김주영|여러 해에 걸친 데이터를 다루면서, 각 연도별로 일부 변수 구성이 달라지는 점이 모델 학습에 사용할 시점을 결정하는 데 많은 고민과 어려움이 있었습니다. 여러 해의 데이터를 통합하는 과정에서 존재하지 않는 변수는 제외하고, 핵심적인 변수들을 선별하였습니다. 또한 모델 성능 향상을 위해 새로운 파생변수를 생성하고, 일부 변수만 선별하여 사용하는 등 다양한 실험을 통해서 최고의 예측 성능을 할 수 있었습니다. 스트림릿을 통해 모델 예측 결과를 시각화하는 과정에서, 모델 학습 환경과 스트림릿 실행 환경의 라이브러리 버전이 달라 많은 시간과 노력을 들여 버전 충돌을 해결해야 했습니다. 이 경험을 통해 라이브러리 버전 호환성은 프로젝트의 모든 과정에서 가장 중요한 요소라는 것을 깨달았습니다.|
 |전상아|데이터 전처리 과정에서 변수 반영 및 연도 추출 부분에서 모델 성능이 달라지는 것을 확인한 부분에서 프로젝트를 진행할 때 데이터 선택 및 전처리 과정이 모델 성능에 많은 영향을 준다는 것을 알게되었습니다. 또, 처음 4개년도 데이터에 대해 랜덤포레스트, 결정트리, 로지스틱회귀 등 기본 모델에 대해 성능 확인을 해보았습니다. 이때 오히려 데이터 수가 적을 경우에는 오히려 스태킹, 부스팅 등의 모델이 과적합이 일어날 수 있다는 것을 알아 데이터 종류에 맞는 모델 선정 및 학습의 중요성을 알았습니다. 최종적으로 리드미 작성 과정에서 다른 팀원들의 코드를 읽고 정리하며 다양한 모델 성능 향상 방법에 대해 배우는 기회가 되었습니다. |
 |조해리|설문조사 데이터여서 데이터를 파악하는 것부터가 정말 힘들었고, 전처리 과정에서도 시행착오가 많았다. 특히 모델 성능이 어떻게 돌려도 63%에서 오르지 않아 어려움을 겪었지만, 전처리 과정에서의 실수를 발견하고 수정했을 때 성능이 확실히 개선되는 경험을 했다. 이를 통해 데이터 분석에서 전처리의 중요성을 크게 느낄 수 있었다.|
-|최우진| |
+|최우진|가공되지 않은 데이터를 다루다 보니 전처리 과정에서부터 어려움이 많았지만, 특히 모델링 단계에서 더 큰 난관을 겪었습니다. 초기 모델의 성능이 기대에 미치지 못했기 때문입니다. 이에 전처리 과정을 처음부터 다시 진행하며, 동시에 다양한 모델의 성능을 비교·검증했습니다. 그 과정에서 점차 긍정적인 신호들을 발견하고, 모델을 고도화해 나가는 데서 큰 보람과 즐거움을 느꼈습니다. 다만 신뢰할 수 있는 데이터가 더 충분히 확보되었다면 학습, 평가, 그리고 예측 단계에서 훨씬 더 효과적으로 진행할 수 있었을 것이라는 아쉬움이 남습니다.|
