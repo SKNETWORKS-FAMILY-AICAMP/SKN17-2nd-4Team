@@ -325,6 +325,11 @@ print(f'{roc_auc_score(y_test, y_pred_test):.4f}')
 ```
 <img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EB%9E%9C%ED%8F%AC%20%EA%B2%B0%EA%B3%BC.png" />
 
+* Train : 0.5389
+* Test : 0.5051
+* Overfitting Gap : 0.0338
+  → 전반적인 F1과 정확도에서 낮은 수준의 성능. 과대적합은 없지만, 소수 클래스인 이탈자에 대한 재현율이 떨어짐. 
+
 
 <br>
 <br>
@@ -370,7 +375,11 @@ print(f"ROC AUC Score: {roc_auc_score(y_test, y_prob_test_xgb):.4f}")
 ```
 <img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/XGBoost1%EB%B2%88%20%EA%B2%B0%EA%B3%BC.png" />
 
-
+* Train : 0.8129
+* Test : 0.6762
+* Overfitting Gap : 0.1367
+  → 랜덤포레스트 모델보다 성능 증가.
+  → 규제 부족 문제와 데이터 불균형으로 이탈자에 대한 재현율이 다소 떨어짐.
 
 <br>
 <br>
@@ -414,6 +423,11 @@ print(f'{roc_auc_score(y_test, y_prob_test):.4f}')
 ```
 <img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/GradientBoost%EA%B2%B0%EA%B3%BC.png" />
 
+* Train : 0.9402
+* Test : 0.7751
+* Overfitting Gap : 0.1651
+  → 과적합 발생하지만 성능 안정적적
+  
 
 <br>
 <br>
@@ -453,6 +467,11 @@ y_pred_test = best_hist_gb_clf.predict(X_test)
 y_prob_test = best_hist_gb_clf.predict_proba(X_test)[:, 1]
 ```
 <img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/hist%EA%B2%B0%EA%B3%BC.png" />
+
+* Train : 0.9686
+* Test : 0.8090
+* Overfitting Gap : 0.1596
+  → 
 
 <br>
 <br>
