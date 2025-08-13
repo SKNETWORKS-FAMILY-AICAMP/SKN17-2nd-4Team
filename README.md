@@ -203,7 +203,12 @@ print(df_all['job_o'].value_counts())
 # 라벨 기초 데이터 변환
 df_24['label'] = (df_24[['label_1', 'label_2', 'label_3']].isin(['2']).any(axis=1).astype(int))
 print(sum(df_24['label'] == 1), sum(df_24['label'] == 0))
+```
 
+<br>
+
+#### * 이탈(churn) 변수 정의
+```python
 # label의 다음 연도 값
 df_all['next_year_label'] = df_all.groupby('pid')['label'].shift(-1)
 df_all
@@ -223,21 +228,6 @@ df_all['churn'] = np.select(churn_conditions, churn_choices, default=np.nan)
 #### * 결측치 제거
 ```python
 df_all = df_all[df_all['label'].str.strip() != ''].reset_index(drop=True)
-```
-
-<br>
-
-#### * 이탈(churn) 변수 정의
-```python
-df_all['next_year_label'] = df_all.groupby('pid')['label'].shift(-1) # 각 pid 그룹에 대한 다음 연도의 label 값 반환
-
-churn_conditions = [
-    (df_all['label'] == '2') & (df_all['next_year_label'].notna()) & (df_all['next_year_label'] != '2'),
-    (df_all['label'] == '2') & (df_all['next_year_label'].notna()) & (df_all['next_year_label'] == '2')
-]
-churn_choices = [1, 0] # 1: 이탈 (Churn), 0: 비이탈 (Not Churn)
-
-df_all['churn'] = np.select(churn_conditions, churn_choices, default=np.nan)
 ```
 
 <br>
@@ -537,7 +527,35 @@ y_prob_test = best_xgb_clf.predict_proba(X_test)[:, 1]
 <br>
 
 ## 실제 데이터 확인
-- 
+```python
+# 23년도 데이터를 기반으로 전처리 진행 및 이탈률 라벨 생성
+# 1. X, y 분리
+X_23 = df_final_2.drop(columns=['churn'])
+y_23 = df_final_2['churn']
+X_encoded_2 = X_23.copy()
+for col in X_encoded_2.select_dtypes(include='object').columns:
+    le = LabelEncoder()
+    X_encoded_2[col] = le.fit_transform(X_encoded_2[col].astype(str))
+
+# 2. 예측
+y_pred_23 = best_xgb_clf.predict(X_encoded_2)
+y_proba_23 = best_xgb_clf.predict_proba(X_encoded_2)[:, 1]
+
+# 3. 결과 DataFrame 만들기
+results_23_df = X_encoded_2.copy()
+results_23_df['실제값'] = y_23.values
+results_23_df['예측값'] = y_pred_23
+results_23_df['1_확률'] = y_proba_23
+
+# 4. 전체 출력
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+
+#results_23_df
+matched_df.head(10)
+```
+<img width="1078" height="366" alt="image" src="https://github.com/user-attachments/assets/0e114346-6ca8-4c8a-ac38-c9b3376ef59a" />
+
 
 <br>
 <br>
@@ -559,7 +577,7 @@ y_prob_test = best_xgb_clf.predict_proba(X_test)[:, 1]
 # 8. 한 줄 회고
 |이름|내용|
 |:---:|:---|
-|김주영| |
-|전상아| |
+|김주영|여러 해에 걸친 데이터를 다루면서, 각 연도별로 일부 변수 구성이 달라지는 점이 모델 학습에 사용할 시점을 결정하는 데 많은 고민과 어려움이 있었습니다. 여러 해의 데이터를 통합하는 과정에서 존재하지 않는 변수는 제외하고, 핵심적인 변수들을 선별하였습니다. 또한 모델 성능 향상을 위해 새로운 파생변수를 생성하고, 일부 변수만 선별하여 사용하는 등 다양한 실험을 통해서 최고의 예측 성능을 할 수 있었습니다. 스트림릿을 통해 모델 예측 결과를 시각화하는 과정에서, 모델 학습 환경과 스트림릿 실행 환경의 라이브러리 버전이 달라 많은 시간과 노력을 들여 버전 충돌을 해결해야 했습니다. 이 경험을 통해 라이브러리 버전 호환성은 프로젝트의 모든 과정에서 가장 중요한 요소라는 것을 깨달았습니다.|
+|전상아|데이터 전처리 과정에서 변수 반영 및 연도 추출 부분에서 모델 성능이 달라지는 것을 확인한 부분에서 프로젝트를 진행할 때 데이터 선택 및 전처리 과정이 모델 성능에 많은 영향을 준다는 것을 알게되었습니다. 또, 처음 4개년도 데이터에 대해 랜덤포레스트, 결정트리, 로지스틱회귀 등 기본 모델에 대해 성능 확인을 해보았습니다. 이때 오히려 데이터 수가 적을 경우에는 오히려 스태킹, 부스팅 등의 모델이 과적합이 일어날 수 있다는 것을 알아 데이터 종류에 맞는 모델 선정 및 학습의 중요성을 알았습니다. 최종적으로 리드미 작성 과정에서 다른 팀원들의 코드를 읽고 정리하며 다양한 모델 성능 향상 방법에 대해 배우는 기회가 되었습니다. |
 |조해리|설문조사 데이터여서 데이터를 파악하는 것부터가 정말 힘들었고, 전처리 과정에서도 시행착오가 많았다. 특히 모델 성능이 어떻게 돌려도 63%에서 오르지 않아 어려움을 겪었지만, 전처리 과정에서의 실수를 발견하고 수정했을 때 성능이 확실히 개선되는 경험을 했다. 이를 통해 데이터 분석에서 전처리의 중요성을 크게 느낄 수 있었다.|
 |최우진| |
