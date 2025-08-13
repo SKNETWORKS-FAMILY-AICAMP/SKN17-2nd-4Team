@@ -492,7 +492,7 @@ grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 grid_search.fit(X_train, y_train)
 grid_search.best_params_
 ```
-
+<img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%B5%9C%EC%A2%85%EB%B2%A0%EC%8A%A4%ED%8A%B8%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0.png" />
 <br>
 
 ```python
@@ -514,6 +514,7 @@ print(f'{roc_auc_score(y_test, y_prob_test):.4f}')
 ```
 <img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%B5%9C%EC%A2%85xgboost.png" />
 
+<br>
 <br>
 
 ## 실제 데이터 확인
