@@ -39,7 +39,7 @@
 ### ▶️ 프로젝트 배경
 <br>
 
-<img width="551" height="210" alt="image" src="https://github.com/user-attachments/assets/3954c807-02cf-4edb-ab48-04ec4bec4a9d" />
+<img width="551" height="210" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EA%B8%B0%EC%82%AC%20%EC%BA%A1%EC%B2%98.png" />
 
 > https://www.chosun.com/economy/tech_it/2023/03/10/NEL65GJO2ZGUXJHVGNCAC4Y354/
 
@@ -66,7 +66,7 @@
 <br>
 <br>
 
-<img width="600" height="450" alt="image" src="https://github.com/user-attachments/assets/13150251-0be3-43a7-96bd-6e85accadd69" />
+<img width="600" height="450" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EA%B7%B8%EB%9E%98%ED%94%84%202.png" />
 
 > https://www.wiseapp.co.kr/insight/detail/517
 
@@ -75,7 +75,7 @@
 <br>
 <br>
 
-|<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/639bc8a7-162e-41fd-b1b6-89720eb2fd2c" />|<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/86dc6a9c-85ed-4db8-a7c7-95c873108c5d" />|
+|<img width="600" height="300" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EA%B7%B8%EB%9E%98%ED%94%84%20%ED%91%9C%201.png" />|<img width="600" height="300" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EA%B7%B8%EB%9E%98%ED%94%84%20%ED%91%9C%202.png" />|
 |:---|:---|
 | 페이스북 앱 사용자 및 사용시간 추이 | 인스타그램, 페이스북 앱 월간 사용자 추이 |
 
@@ -122,8 +122,8 @@
 # 3. 기술 스택
 |개발도구|협업도구|프로그래밍 언어|데이터 전처리|데이터 시각화|머신러닝|
 |---|---|---|---|---|---|
-|vscode|Github|Python|Pandas / numpy|Matplotlib|scikit learn|
-| <img src='https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white'>|<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">|<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">|<img src="https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white"> <img src='https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white'>|<img src='https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black'>| <img src="https://img.shields.io/badge/Scikit-learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>|
+|vscode|Github|Python|Pandas / numpy|Matplotlib / seabon|scikit learn|
+| <img src='https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white'>|<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">|<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">|<img src="https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white"> <img src='https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white'>|<img src='https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black'> | <img src="https://img.shields.io/badge/Scikit-learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>|
 
 <br>
 <br>
@@ -174,7 +174,7 @@ df_19['year'] = 2019
 
 df_19.head()
 ```
-<img width="1303" height="193" alt="image" src="https://github.com/user-attachments/assets/990f4250-728e-48b5-bf49-b33ab7db3424" />
+<img width="1303" height="193" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%A0%84%EC%B2%98%EB%A6%AC%201.png" />
 
 <br>
 <br>
@@ -192,7 +192,7 @@ print(df_all['job_o'].value_counts())
 #### * 데이터 맵핑
   - 데이터 사용 빈도에 대해 맵핑
   
-  |<img width="238" height="176" alt="image" src="https://github.com/user-attachments/assets/8cecaa34-7fbf-4067-a515-5eb51792f206" /> | <img width="238" height="176" alt="image" src="https://github.com/user-attachments/assets/e1f9bf73-ceb4-403b-9005-fef9ad932e19" />|
+  |<img width="238" height="176" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EB%A7%B5%ED%95%911.png" /> | <img width="238" height="176" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EB%A7%B5%ED%95%912.png" />|
   |---|---|
   |기존값|맵핑 후|
 
@@ -240,13 +240,13 @@ df_model_base = df_all[df_all['churn'].notna()].copy() # 'churn'값이 NaN이 �
 <br>
   
 #### * 2개년 기초 데이터 
-<img width="500" height="198" alt="image" src="https://github.com/user-attachments/assets/d8c182a7-6868-40a7-adc0-f6da4f0a2ce4" />
+<img width="500" height="198" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%A0%84%EC%B2%98%EB%A6%AC%202%EA%B0%9C%EB%85%84%20%EA%B8%B0%EC%B4%88.png" />
 
 <br>
 <br>
 
 #### * 24년도 변수 변경 내용 컬럼 추가
-<img width="1540" height="198" alt="image" src="https://github.com/user-attachments/assets/5b23701e-db7c-4bb6-a163-677e97b8e6be" />
+<img width="1540" height="198" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%A0%84%EC%B2%98%EB%A6%AC%20%EC%BB%AC%EB%9F%BC%20%EC%B6%94%EA%B0%80.png" />
 
 → 총 31개 피처, 1712개 로우 수 생성
 
@@ -268,7 +268,7 @@ df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  #
 <br>
 
 #### * 변수별 상관계수 
-<img width="600" height="550" alt="image" src="https://github.com/user-attachments/assets/723d36c7-57d0-4725-97d8-5fb8a5d00063" />
+<img width="600" height="550" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%83%81%EA%B4%80%EA%B3%84%EC%88%98.png" />
 
 <br>
 
@@ -278,7 +278,7 @@ df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  #
 <br>
 
 #### * 중요도 추출
-<img width="500" height="600" alt="image" src="https://github.com/user-attachments/assets/839a9056-8608-4d94-b953-ad1c3646a128" />
+<img width="500" height="600" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%A4%91%EC%9A%94%EB%8F%84.png" />
 
 
  
@@ -323,7 +323,7 @@ print("\n===== RandomForest - Test Set Evaluation =====")
 print(classification_report(y_test, y_pred_test))
 print(f'{roc_auc_score(y_test, y_pred_test):.4f}')
 ```
-<img width="320" height="320" alt="image" src="https://github.com/user-attachments/assets/a9e296d3-302f-4e40-ab33-55130732c27d" />
+<img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EB%9E%9C%ED%8F%AC%20%EA%B2%B0%EA%B3%BC.png" />
 
 
 <br>
@@ -368,7 +368,7 @@ print("Classification Report:")
 print(classification_report(y_test, y_pred_test_xgb))
 print(f"ROC AUC Score: {roc_auc_score(y_test, y_prob_test_xgb):.4f}")
 ```
-<img width="320" height="320" alt="image" src="https://github.com/user-attachments/assets/120307e9-56cf-4dcb-af73-45da1ee19ef3" />
+<img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/XGBoost1%EB%B2%88%20%EA%B2%B0%EA%B3%BC.png" />
 
 
 
@@ -395,26 +395,24 @@ grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 
 grid_search.fit(X_train, y_train)
 grid_search.best_params_
-```
 
-```python
-best_hist_gb_clf = grid_search.best_estimator_
+best_grid_clf = grid_search.best_estimator_
 
-y_pred_train = best_hist_gb_clf.predict(X_train)
-y_prob_train = best_hist_gb_clf.predict_proba(X_train)[:, 1]
+y_pred_train = best_grid_clf.predict(X_train)
+y_prob_train = best_grid_clf.predict_proba(X_train)[:, 1]
 
-y_pred_test = best_hist_gb_clf.predict(X_test)
-y_prob_test = best_hist_gb_clf.predict_proba(X_test)[:, 1]
+y_pred_test = best_grid_clf.predict(X_test)
+y_prob_test = best_grid_clf.predict_proba(X_test)[:, 1]
 
-print("\n===== XGBoost - Train Set Evaluation =====")
+print("\n===== GradientBoost - Train Set Evaluation =====")
 print(classification_report(y_train, y_pred_train))
 print(f'{roc_auc_score(y_train, y_prob_train):.4f}')
 
-print("\n===== XGBoost - Test Set Evaluation =====")
+print("\n===== GradientBoost - Test Set Evaluation =====")
 print(classification_report(y_test, y_pred_test))
 print(f'{roc_auc_score(y_test, y_prob_test):.4f}')
 ```
-<img width="320" height="320" alt="image" src="https://github.com/user-attachments/assets/fe912a84-7533-4966-b2b0-4d163918bfb8" />
+<img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/GradientBoost%EA%B2%B0%EA%B3%BC.png" />
 
 
 <br>
@@ -446,9 +444,6 @@ grid_search = GridSearchCV(model, param_grid, cv=5, scoring='roc_auc')
 
 grid_search.fit(X_train, y_train)
 grid_search.best_params_
-```
-
-```python
 best_hist_gb_clf = grid_search.best_estimator_
 
 y_pred_train = best_hist_gb_clf.predict(X_train)
@@ -457,7 +452,7 @@ y_prob_train = best_hist_gb_clf.predict_proba(X_train)[:, 1]
 y_pred_test = best_hist_gb_clf.predict(X_test)
 y_prob_test = best_hist_gb_clf.predict_proba(X_test)[:, 1]
 ```
-<img width="320" height="320" alt="image" src="https://github.com/user-attachments/assets/cbfee80e-f39a-4e1e-aa23-6da47be5010c" />
+<img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/hist%EA%B2%B0%EA%B3%BC.png" />
 
 <br>
 <br>
@@ -508,8 +503,16 @@ y_prob_train = best_xgb_clf.predict_proba(X_train)[:, 1]
 
 y_pred_test = best_xgb_clf.predict(X_test)
 y_prob_test = best_xgb_clf.predict_proba(X_test)[:, 1]
+
+print("\n===== XGBoost - Train Set Evaluation =====")
+print(classification_report(y_train, y_pred_train))
+print(f'{roc_auc_score(y_train, y_prob_train):.4f}')
+
+print("\n===== XGBoost - Test Set Evaluation =====")
+print(classification_report(y_test, y_pred_test))
+print(f'{roc_auc_score(y_test, y_prob_test):.4f}')
 ```
-<img width="320" height="320" alt="image" src="https://github.com/user-attachments/assets/dd6c2090-319f-4c99-a61d-3b7e04d63950" />
+<img width="320" height="320" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%B5%9C%EC%A2%85xgboost.png" />
 
 <br>
 
@@ -541,7 +544,7 @@ pd.set_option('display.max_columns', None)
 #results_23_df
 matched_df.head(10)
 ```
-<img width="1078" height="366" alt="image" src="https://github.com/user-attachments/assets/0e114346-6ca8-4c8a-ac38-c9b3376ef59a" />
+<img width="1078" height="366" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/image_2/%EC%8B%A4%EC%A0%9C%EB%8D%B0%EC%9D%B4%ED%84%B0%ED%85%8C%EC%8A%A4%ED%8A%B8.png" />
 
 
 <br>
