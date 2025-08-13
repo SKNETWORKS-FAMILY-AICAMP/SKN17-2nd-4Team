@@ -288,7 +288,8 @@ df_final['job_change'] = (df_final['job_y'] != df_final['job_x']).astype(int)  #
 <br>
 
 #### * 중요도 추출
-<img width="500" height="600" alt="image" src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN17-2nd-4Team/blob/main/image/%EC%A4%91%EC%9A%94%EB%8F%84.png" />
+<img width="500" height="600" alt="image" src="https://github.com/user-attachments/assets/839a9056-8608-4d94-b953-ad1c3646a128" />
+
 
  
 <br>
@@ -401,10 +402,10 @@ for col in X_encoded.select_dtypes(include='object').columns:
 X_train, X_test, y_train, y_test = train_test_split(X_encoded, y_resample, random_state=42)
 
 param_grid = {
-    'max_iter': [100],
-    'max_depth': [5],
-    'learning_rate': [0.3],
-    'l2_regularization': [10],
+    'max_iter': [50, 100, 150],
+    'max_depth': [3, 5, 8],
+    'learning_rate': [0.1, 0.3, 0.5],
+    'l2_regularization': [5, 10, 15],
     'max_bins': [225]
 }
 
